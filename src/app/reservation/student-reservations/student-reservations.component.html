@@ -1,0 +1,41 @@
+<h2 class="reservations-title">My Reservations</h2>
+
+<div class="navigation-buttons">
+  <button mat-raised-button color="accent" (click)="goToCourses()">
+    Available Courses
+  </button>
+  <button mat-raised-button color="warn" (click)="logout()">
+    Logout
+  </button>
+</div>
+
+<div *ngIf="reservations.length === 0" class="no-reservations">
+  No reservations found.
+</div>
+
+<div class="reservations-grid" *ngIf="reservations.length > 0">
+  <mat-card *ngFor="let reservation of reservations" class="reservation-card">
+    <mat-card-title>{{ reservation.course.name }}</mat-card-title>
+    <mat-card-subtitle class="course-schedule">{{ reservation.course.schedule }}</mat-card-subtitle>
+
+    <mat-card-content>
+      <p><strong>Date Reserved:</strong> {{ reservation.date | date }}</p>
+      <p><strong>Status:</strong> {{ reservation.status }}</p>
+      <p><strong>Capacity:</strong> {{ reservation.course.capacity }} students</p>
+      <p><strong>Cost per Session:</strong> ${{ reservation.course.cost_per_session | number: '1.2-2' }}</p>
+      <p class="course-details">{{ reservation.course.details }}</p>
+    </mat-card-content>
+
+    <mat-card-actions align="end" *ngIf="!loading">
+      <button mat-button color="primary" (click)="editReservation(reservation)">
+        Edit
+      </button>
+      <button mat-button color="warn" (click)="cancelReservation(reservation.id)">
+        Cancel
+      </button>
+    </mat-card-actions>
+    <mat-card-actions align="end" *ngIf="loading">
+      <mat-spinner diameter="25"></mat-spinner>
+    </mat-card-actions>
+  </mat-card>
+</div>

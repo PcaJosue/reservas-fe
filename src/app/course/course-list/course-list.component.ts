@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Course } from '../course';
 import { CourseDetailDialogComponent } from '../course-detail-dialog/course-detail-dialog.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -22,7 +24,9 @@ export class CourseListComponent implements OnInit {
   courses: Course[] = [];
   isLoading = true;
 
-  constructor(private courseService: CourseService, private dialog: MatDialog) {}
+  constructor(private courseService: CourseService, private dialog: MatDialog, private router:Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.courseService.getCourses().subscribe({
@@ -48,4 +52,12 @@ export class CourseListComponent implements OnInit {
     })
   }
 
+  goToReservations() {
+    this.router.navigate(['/reservations']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-course-detail-dialog',
@@ -22,7 +23,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDatepickerModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [ReservationService],
   templateUrl: './course-detail-dialog.component.html',
@@ -31,6 +33,7 @@ import { MatInputModule } from '@angular/material/input';
 export class CourseDetailDialogComponent {
   reservationForm: FormGroup;
   reservationMessage: string | null = null;
+  loading:boolean=false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public course: Course,
@@ -49,14 +52,17 @@ export class CourseDetailDialogComponent {
         courseId: this.course.id,
         date: this.reservationForm.value.date,
       };
-
+      this.loading=true;
       this.reservationService.reserveCourse(reservationData).subscribe({
         next: () => {
           this.reservationMessage = 'Reservation confirmed!';
-          setTimeout(() => this.dialogRef.close(), 2000);
+          this.dialogRef.close()
+          this.loading=false;
         },
         error: (error) => {
+
           this.reservationMessage = error.error.message || 'Reservation failed. Please try again.';
+          this.loading=false;
         }
       });
     }

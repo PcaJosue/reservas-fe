@@ -15,12 +15,19 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="dialogRef.close()">Close</button>
-  <button mat-raised-button color="primary" (click)="onReserve()" [disabled]="!reservationForm.valid">
-    Reserve
-  </button>
-</mat-dialog-actions>
+@if(!loading){
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">Close</button>
+    <button mat-raised-button color="primary" (click)="onReserve()" [disabled]="!reservationForm.valid">
+      Reserve
+    </button>
+  </mat-dialog-actions>
+}
+@else{
+  <mat-dialog-actions align="end">
+    <mat-spinner  diameter="25"></mat-spinner>
+  </mat-dialog-actions>
+}
 
 <div *ngIf="reservationMessage" class="reservation-message">
   {{ reservationMessage }}

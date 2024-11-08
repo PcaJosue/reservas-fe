@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Edit Reservation</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Reservation Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if(!loading){
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="editForm.invalid">
+      Save
+    </button>
+  }
+  @else{
+    <mat-spinner  diameter="25"></mat-spinner>
+  }
+</mat-dialog-actions>

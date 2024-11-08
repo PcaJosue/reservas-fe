@@ -1,0 +1,94 @@
+// Title styling
+.reservations-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+// Message when no reservations are found
+.no-reservations {
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 20px;
+  color: #777;
+}
+
+// Responsive grid layout for reservation cards
+.reservations-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 0 20px;
+}
+
+// Card styling for each reservation
+.reservation-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 16px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+// Course schedule subtitle styling
+.course-schedule {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+// Course details paragraph styling
+.course-details {
+  margin-top: 10px;
+  color: #555;
+  font-style: italic;
+}
+
+// Content spacing
+mat-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+mat-card-subtitle {
+  font-weight: 400;
+  color: #888;
+}
+
+mat-card-content p {
+  margin: 5px 0;
+  color: #333;
+}
+
+// Actions section styling
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+// Spinner styling within mat-card-actions
+mat-spinner {
+  display: block;
+  margin: auto;
+}
+
+// Style for navigation buttons
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+
+  button {
+    font-weight: 500;
+  }
+}
