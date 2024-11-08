@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -26,6 +27,7 @@ export class SignupComponent implements OnInit {
 
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
 
   signupForm: FormGroup = new FormGroup({});
@@ -52,6 +54,7 @@ export class SignupComponent implements OnInit {
         next: (response) => {
           this.isLoading = false;
           this.authMessage = response.message || 'Signup successful!';
+          this.router.navigate(['/courses']);
         },
         error: (error) => {
           this.isLoading = false;

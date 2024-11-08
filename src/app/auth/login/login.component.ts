@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   loginForm: FormGroup;
   isLoading:boolean = false;
@@ -50,6 +53,7 @@ export class LoginComponent implements OnInit {
         next: () => {
           this.isLoading = false;
           this.authMessage = 'Login successful!';
+          this.router.navigate(['/courses']);
         },
         error: (error) => {
           this.isLoading = false;

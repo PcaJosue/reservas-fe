@@ -38,9 +38,14 @@ export class CourseListComponent implements OnInit {
   }
 
   openCourseDetail(course: Course) {
-    this.dialog.open(CourseDetailDialogComponent, {
+    const detailRef = this.dialog.open(CourseDetailDialogComponent, {
       width: '400px',
       data: course
     });
+
+    detailRef.beforeClosed().subscribe((course: Course | null)=>{
+      if(!course) return;
+    })
   }
+
 }

@@ -22,7 +22,6 @@ export class CourseDetailDialogComponent {
   ) {}
 
   onReserve() {
-    console.log('Reservation for course:', this.course.name);
-    this.dialogRef.close();
+    this.dialogRef.close(this.course);
   }
 }
