@@ -1,0 +1,11 @@
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.course-card {
+  width: 100%;
+  max-width: 400px;
+}

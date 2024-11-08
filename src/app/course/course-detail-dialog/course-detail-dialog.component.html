@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{ course.name }}</h2>
+<mat-dialog-content>
+  <p><strong>Schedule:</strong> {{ course.schedule }}</p>
+  <p><strong>Capacity:</strong> {{ course.capacity }}</p>
+  <p><strong>Cost per session:</strong> ${{ course.cost_per_session }}</p>
+  <p><strong>Details:</strong> {{ course.details }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Close</button>
+  <button mat-raised-button color="primary" (click)="onReserve()">Reserve</button>
+</mat-dialog-actions>
