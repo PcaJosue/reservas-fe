@@ -24,9 +24,12 @@ export class AuthService {
 
   signup(name: string, email: string, password: string) {
 
-    return this.http.post<{ message: string }>(`${this.apiUrl}/signup`, { name, email, password })
-      .pipe(
-        catchError(this.handleError.bind(this))
+    return this.http.post<{ accessToken: string }>(`${this.apiUrl}/signup`, { name, email, password })
+    .pipe(
+      tap(response => {
+        localStorage.setItem('accessToken', response.accessToken);
+      }),
+      catchError(this.handleError.bind(this))
       );
   }
 

@@ -3,6 +3,13 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Course } from '../course';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CourseService } from '../course.service';
+import { ReservationService } from '../../reservation/reservation.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-course-detail-dialog',
@@ -10,18 +17,48 @@ import { Course } from '../course';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
+  providers: [ReservationService],
   templateUrl: './course-detail-dialog.component.html',
   styleUrls: ['./course-detail-dialog.component.scss']
 })
 export class CourseDetailDialogComponent {
+  reservationForm: FormGroup;
+  reservationMessage: string | null = null;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public course: Course,
+    private fb: FormBuilder,
+    private reservationService: ReservationService,
     public dialogRef: MatDialogRef<CourseDetailDialogComponent>
-  ) {}
+  ) {
+    this.reservationForm = this.fb.group({
+      date: [new Date(), Validators.required],
+    });
+  }
 
   onReserve() {
-    this.dialogRef.close(this.course);
+    if (this.reservationForm.valid) {
+      const reservationData = {
+        courseId: this.course.id,
+        date: this.reservationForm.value.date,
+      };
+
+      this.reservationService.reserveCourse(reservationData).subscribe({
+        next: () => {
+          this.reservationMessage = 'Reservation confirmed!';
+          setTimeout(() => this.dialogRef.close(), 2000);
+        },
+        error: (error) => {
+          this.reservationMessage = error.error.message || 'Reservation failed. Please try again.';
+        }
+      });
+    }
   }
 }

@@ -51,9 +51,9 @@ export class SignupComponent implements OnInit {
       this.authMessage = null;
 
       this.authService.signup(name, email, password).subscribe({
-        next: (response) => {
+        next: (_response) => {
           this.isLoading = false;
-          this.authMessage = response.message || 'Signup successful!';
+          this.authMessage = 'Signup successful!';
           this.router.navigate(['/courses']);
         },
         error: (error) => {

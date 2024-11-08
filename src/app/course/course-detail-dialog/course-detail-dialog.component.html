@@ -4,8 +4,24 @@
   <p><strong>Capacity:</strong> {{ course.capacity }}</p>
   <p><strong>Cost per session:</strong> ${{ course.cost_per_session }}</p>
   <p><strong>Details:</strong> {{ course.details }}</p>
+
+  <form [formGroup]="reservationForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Reservation Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
   <button mat-button (click)="dialogRef.close()">Close</button>
-  <button mat-raised-button color="primary" (click)="onReserve()">Reserve</button>
+  <button mat-raised-button color="primary" (click)="onReserve()" [disabled]="!reservationForm.valid">
+    Reserve
+  </button>
 </mat-dialog-actions>
+
+<div *ngIf="reservationMessage" class="reservation-message">
+  {{ reservationMessage }}
+</div>
